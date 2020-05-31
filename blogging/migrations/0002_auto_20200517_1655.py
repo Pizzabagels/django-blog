@@ -6,26 +6,36 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blogging', '0001_initial'),
+        ("blogging", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('description', models.CharField(blank=True, max_length=500)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("description", models.CharField(blank=True, max_length=500)),
             ],
         ),
         migrations.AlterField(
-            model_name='post',
-            name='published_date',
+            model_name="post",
+            name="published_date",
             field=models.DateTimeField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='category',
-            name='category',
-            field=models.ManyToManyField(blank=True, related_name='categories', to='blogging.Post'),
+            model_name="category",
+            name="category",
+            field=models.ManyToManyField(
+                blank=True, related_name="categories", to="blogging.Post"
+            ),
         ),
     ]
