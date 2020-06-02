@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.template import loader
-from blogging.models import Post
-
+from blogging.models import Post, Category
+from rest_framework import viewsets
+from .serializers import CategorySerializer, PostSerializer
 
 def list_view(request):
     published = Post.objects.exclude(published_date__exact=None)
@@ -21,3 +22,17 @@ def detail_view(request, post_id):
         raise Http404
     context = {"post": post}
     return render(request, "blogging/detail.html", context)
+
+class PostViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows posts to be viewed or edited.
+    """
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
